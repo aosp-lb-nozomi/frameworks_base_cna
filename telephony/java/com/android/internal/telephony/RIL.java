@@ -577,7 +577,20 @@ public class RIL extends BaseCommands implements CommandsInterface {
 
                 mSocket = s;
                 Log.i(LOG_TAG, "Connected to '" + SOCKET_NAME_RIL + "' socket");
+                
+                String str = "SUB1";
 
+               Log.i(LOG_TAG, "Sending  SUB data : " + str);
+                byte[] data = str.getBytes();
+                try {
+                    mSocket.getOutputStream().write(data);
+                    Log.i(LOG_TAG, "Data sent!!");
+                } catch (IOException ex) {
+                    Log.e(LOG_TAG, "IOException", ex);
+                } catch (RuntimeException exc) {
+                    Log.e(LOG_TAG, "Uncaught exception ", exc);
+                }
+                
                 int length = 0;
                 try {
                     InputStream is = mSocket.getInputStream();
